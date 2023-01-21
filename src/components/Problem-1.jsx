@@ -12,12 +12,28 @@ const Problem1 = () => {
         const status = form.status.value;
         const newData = {name, status};
         setAllData(oldArray => [...oldArray, newData] );
-        console.log('after submitting button:', allData);
         form.reset();
     }
 
     const handleClick = (val) =>{
         setShow(val);
+    }
+
+    const getDataSet = () => {
+        let dataSet = []
+        if (show == 'active'){
+            console.log('active button clicked');
+            dataSet = allData.filter(singleData => singleData.status == 'active')
+        }
+        else if (show == 'completed'){
+            console.log('completed button clicked');
+            dataSet = allData.filter(singleData => singleData.status == 'completed')
+        }
+        else{
+            console.log('all button is clicked');
+            dataSet = allData
+        }
+        return dataSet;
     }
 
     return (
@@ -60,7 +76,7 @@ const Problem1 = () => {
                         </thead>
                         <tbody>
                             {
-                                allData?.map((singleData, index) => <tr key={index}>
+                                getDataSet()?.map((singleData, index) => <tr key={index}>
                                     <td>{singleData.name}</td>
                                     <td>{singleData.status}</td>
                                 </tr>)
