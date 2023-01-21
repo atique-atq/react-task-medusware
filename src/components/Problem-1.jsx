@@ -31,7 +31,18 @@ const Problem1 = () => {
         }
         else{
             console.log('all button is clicked');
-            dataSet = allData
+            dataSet = allData;
+            dataSet.sort((a, b) => {
+                const statusA = a.status.toUpperCase(); // ignore upper and lowercase
+                const statusB = b.status.toUpperCase(); // ignore upper and lowercase
+                if (statusA < statusB) {
+                    return -1;
+                }
+                if (statusA > statusB) {
+                    return 1;
+                }
+                return 0;
+            });
         }
         return dataSet;
     }
