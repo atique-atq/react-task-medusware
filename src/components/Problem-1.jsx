@@ -3,6 +3,18 @@ import React, {useState} from 'react';
 const Problem1 = () => {
 
     const [show, setShow] = useState('all');
+    const [allData, setAllData] = useState([]);
+
+    const handleAddData = event => {
+        event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        const status = form.status.value;
+        const newData = {name, status};
+        setAllData(oldArray => [...oldArray, newData] );
+        console.log('after submitting button:', allData);
+        form.reset();
+    }
 
     const handleClick = (val) =>{
         setShow(val);
@@ -14,12 +26,12 @@ const Problem1 = () => {
             <div className="row justify-content-center mt-5">
                 <h4 className='text-center text-uppercase mb-5'>Problem-1</h4>
                 <div className="col-6 ">
-                    <form className="row gy-2 gx-3 align-items-center mb-4">
+                    <form onSubmit={handleAddData} className="row gy-2 gx-3 align-items-center mb-4">
                         <div className="col-auto">
-                            <input type="text" className="form-control" placeholder="Name"/>
+                            <input type="text" name="name" className="form-control" placeholder="Name"/>
                         </div>
                         <div className="col-auto">
-                            <input type="text" className="form-control" placeholder="Status"/>
+                            <input type="text" name="status" className="form-control" placeholder="Status"/>
                         </div>
                         <div className="col-auto">
                             <button type="submit" className="btn btn-primary">Submit</button>
@@ -47,7 +59,12 @@ const Problem1 = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        
+                            {
+                                allData?.map((singleData, index) => <tr key={index}>
+                                    <td>{singleData.name}</td>
+                                    <td>{singleData.status}</td>
+                                </tr>)
+                            }
                         </tbody>
                     </table>
                 </div>
